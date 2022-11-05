@@ -16,7 +16,7 @@ private:
 
 public:
 	TCPClient(std::string ip_addr, uint16_t port, std::string username);
-	bool send_data(unsigned char* buf, unsigned int size);
+	bool send_data(const uint8_t* buf, const uint64_t size);
 	bool recieve_data();
 
 

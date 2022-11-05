@@ -15,11 +15,21 @@ void ClientUtils::InitClient()
 	Utils::random_client_id(client_id, 16);
 
 	std::cout << client_id << std::endl;
+	
+	std::string str = std::string("ZivDayan");
+	std::vector<char> writable(str.begin(), str.end());
+	writable.push_back('\0'); //Adding null-terminated byte
 
-	FileServerRequest request = FileServerRequest(client_id, '1', 1100, 255, client_id);
-	char* raw_request = request.GenerateRawRequest();
+	char* c = &writable[0];
 
-	tcp_client.send_data(raw_request, 16);
+	FileServerRequest request = FileServerRequest(client_id, '1', 1100, str.length() + 1, c);
+	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateRawRequest();
+
+	auto buffer= std::get<0>(raw_request);
+	auto buffer_size= std::get<1>(raw_request);
+
+	tcp_client.send_data(buffer, buffer_size);
+	delete buffer;
 }
 
 MeInfo ClientUtils::ReadMeFile()

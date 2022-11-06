@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
-#include "ClientUtils.h"
+
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
 #include <iostream>
 
+#include <chrono>
+#include <thread>
 class TCPClient
 {
 private:
@@ -16,9 +18,9 @@ private:
 
 public:
 	TCPClient(std::string ip_addr, uint16_t port, std::string username);
-	bool send_data(const uint8_t* buf, const uint64_t size);
-	bool recieve_data();
+	std::string send_data(const uint8_t* buf, const uint64_t size);
 
 
 };
 
+#include "ClientUtils.h"

@@ -12,15 +12,15 @@ TCPClient ClientUtils::InitClient()
 
 unsigned char* ClientUtils::RegisterUser(TCPClient tcp_client, std::string username)
 {
-	unsigned char* client_id = new unsigned char[16];
-	Utils::random_client_id(client_id, 16);
+	unsigned char* fake_client_id = new unsigned char[16];
+	Utils::random_client_id(fake_client_id, 16);
 
 	std::string str = username;
 	char* payload = new char[str.length() + 1];
 	
 	Utils::add_null_terminating_byte(str, payload);
 
-	FileServerRequest request = FileServerRequest(client_id, '1', int(FileServerRequest::RequestsType::REQUEST_REGISTER_CODE), str.length() + 1, payload);
+	FileServerRequest request = FileServerRequest(fake_client_id, CLIENT_VERSION, int(FileServerRequest::RequestsType::REQUEST_REGISTER_CODE), str.length() + 1, payload);
 	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateRegisterRequest();
 
 	auto buffer = std::get<0>(raw_request);
@@ -28,7 +28,9 @@ unsigned char* ClientUtils::RegisterUser(TCPClient tcp_client, std::string usern
 
 	auto response = tcp_client.send_data(buffer, buffer_size);
 
-	memcpy(client_id, response.c_str(), 16);
+	unsigned char* client_id = new unsigned char[16];
+	std::memcpy(client_id, response.c_str() + RESPONSE_HEADERS_BYTES_SIZE, 16);
+
 	delete buffer;
 
 	return client_id;
@@ -49,7 +51,7 @@ std::vector<std::string> ClientUtils::SendRSAPublicKey(TCPClient tcp_client, uns
 	std::memcpy(raw_pubkey, pubkey.c_str(), pubkey.length());
 
 
-	FileServerRequest request = FileServerRequest(client_id, '1', int(FileServerRequest::RequestsType::REQUEST_SEND_PK), pubkey.length(), raw_pubkey);
+	FileServerRequest request = FileServerRequest(client_id, CLIENT_VERSION, int(FileServerRequest::RequestsType::REQUEST_SEND_PK), pubkey.length(), raw_pubkey);
 	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateSendingPKRequest(username);
 
 	auto buffer = std::get<0>(raw_request);
@@ -57,12 +59,9 @@ std::vector<std::string> ClientUtils::SendRSAPublicKey(TCPClient tcp_client, uns
 
 	auto response = tcp_client.send_data(buffer, buffer_size);
 
-
-	auto headers_bytes_size = 7;
-
-	int client_int_start = headers_bytes_size;
-	int client_int_end = headers_bytes_size + 16;
-	int aes_key_start = headers_bytes_size + 16;
+	int client_int_start = RESPONSE_HEADERS_BYTES_SIZE;
+	int client_int_end = RESPONSE_HEADERS_BYTES_SIZE + 16;
+	int aes_key_start = RESPONSE_HEADERS_BYTES_SIZE + 16;
 	int aes_key_end = response.length() - aes_key_start;
 
 
@@ -142,10 +141,8 @@ std::string ClientUtils::DecryptAESKey(std::string encrypted_aes_key, std::strin
 	return decrypted;
 }
 
-std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_name)
+std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_path)
 {
-	TransferInfo transfer_info = ReadTransferFile();
-	std::string file_path = transfer_info.file_path;
 	
 	// 1. Generate a key and initialize an AESWrapper. You can also create AESWrapper with default constructor which will automatically generates a random key.
 	unsigned char key[AESWrapper::DEFAULT_KEYLENGTH];
@@ -159,4 +156,30 @@ std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_na
 	std::string ciphertext = aes.encrypt(plaintext.c_str(), plaintext.length());
 
 	return ciphertext;
+}
+
+std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes_key, unsigned char* client_id)
+{
+	TransferInfo transfer_info = ReadTransferFile();
+	std::string file_path = transfer_info.file_path;
+	std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
+
+
+	std::string encrypted_payload = ClientUtils::EncryptFileAES(aes_key, file_path);
+
+	char* raw_payload = new char[encrypted_payload.length()];
+	std::memcpy(raw_payload, encrypted_payload.c_str(), encrypted_payload.length());
+
+	FileServerRequest request = FileServerRequest(client_id, CLIENT_VERSION, int(FileServerRequest::RequestsType::REQUEST_SEND_FILE), encrypted_payload.length(), raw_payload);
+	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateEncryptedFileSendRequest(base_filename,Utils::get_file_size(file_path),encrypted_payload);
+
+	auto buffer = std::get<0>(raw_request);
+	auto buffer_size = std::get<1>(raw_request);
+
+	auto response = tcp_client.send_data(buffer, buffer_size);
+
+
+	return std::string();
+
+
 }

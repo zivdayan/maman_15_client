@@ -20,6 +20,8 @@ int main()
 
 	std::string decrypted_aes_key = ClientUtils::DecryptAESKey(encrypted_aes_key, private_key);
 	
+	tcp_client = ClientUtils::InitClient();
+	ClientUtils::SendEncryptedFile(tcp_client, decrypted_aes_key, client_id);
 	delete client_id;
 	return 0;
 }

@@ -26,3 +26,11 @@ void Utils::add_null_terminating_byte(std::string str, char* buf)
     std::memcpy(buf, &writable[0], str.length() + 1);
 
 }
+
+
+long Utils::get_file_size(std::string filename)
+{
+    struct stat stat_buf;
+    int rc = stat(filename.c_str(), &stat_buf);
+    return rc == 0 ? stat_buf.st_size : -1;
+}

@@ -92,7 +92,7 @@ std::tuple<const uint8_t*, const uint64_t> FileServerRequest::GenerateSendingPKR
 }
 
 
-std::tuple<const uint8_t*, const uint64_t> FileServerRequest::GenerateSendingPKRequest(std::string username)
+std::tuple<const uint8_t*, const uint64_t> FileServerRequest::GenerateEncryptedFileSendRequest(std::string file_name, size_t file_size, std::string encrypted_file_content)
 {
 #	pragma pack(push, 1)
 
@@ -109,31 +109,35 @@ std::tuple<const uint8_t*, const uint64_t> FileServerRequest::GenerateSendingPKR
 		char client_id[16];
 		uint32_t file_size;
 		char file_name[255];
-		unsigned char* message_content;
 	};
 
 	struct SendAESEncryptedFile req;
 
 
-	username = username + '\0';
 	std::memcpy(req.raw_req.client_id, client_id, 16);
 	req.raw_req.version = version;
 	req.raw_req.code = code;
-	req.raw_req.payload_size = sizeof(req) - sizeof(req.raw_req);
+	std::memcpy(req.raw_req.client_id, client_id, sizeof(req.client_id));
+	req.raw_req.payload_size = sizeof(req.client_id) + sizeof(req.file_size) + sizeof(req.file_name) + encrypted_file_content.length();
 
-	std::memcpy(req.username, username.c_str(), username.length());
-	std::memcpy(req.payload, payload, payload_size);
+	
+	std::memcpy(req.client_id, client_id, sizeof(req.raw_req.client_id));
+	req.file_size = file_size;
+	std::memcpy(req.file_name, file_name.c_str(), file_name.length());
+	
 
 
 	const uint8_t* temp_buffer = reinterpret_cast<const uint8_t*>(&req);
 
-	uint8_t* raw_buffer = new uint8_t[sizeof(req)];
+	size_t total_buffer_size = sizeof(req) + payload_size;
+	uint8_t* raw_buffer = new uint8_t[total_buffer_size];
 
 	std::memcpy(raw_buffer, temp_buffer, sizeof(req));
+	std::memcpy(raw_buffer + sizeof(req), encrypted_file_content.c_str(), encrypted_file_content.length());
 
 	const uint8_t* final_buffer = raw_buffer;
 
-	return std::make_tuple(final_buffer, sizeof(req));
+	return std::make_tuple(final_buffer, total_buffer_size);
 
 #pragma pack(pop)
 }

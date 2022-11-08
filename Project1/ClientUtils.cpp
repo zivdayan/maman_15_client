@@ -141,22 +141,37 @@ std::string ClientUtils::DecryptAESKey(std::string encrypted_aes_key, std::strin
 	return decrypted;
 }
 
-std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_path)
+#include <iostream>
+#include <iomanip>
+void hexify(const unsigned char* buffer, unsigned int length)
+{
+	std::ios::fmtflags f(std::cout.flags());
+	std::cout << std::hex;
+	for (size_t i = 0; i < length; i++)
+		std::cout << std::setfill('0') << std::setw(2) << (0xFF & buffer[i]) << (((i + 1) % 16 == 0) ? "\n" : " ");
+	std::cout << std::endl;
+	std::cout.flags(f);
+}
+
+std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_data)
 {
 	
 	// 1. Generate a key and initialize an AESWrapper. You can also create AESWrapper with default constructor which will automatically generates a random key.
-	unsigned char key[AESWrapper::DEFAULT_KEYLENGTH];
-	std::memcpy(key, file_path.c_str(), AESWrapper::DEFAULT_KEYLENGTH);
+	unsigned char* key = new unsigned char [AESWrapper::DEFAULT_KEYLENGTH];
+	std::memcpy(key, aes_key.c_str(), AESWrapper::DEFAULT_KEYLENGTH);
+
+	hexify(key, AESWrapper::DEFAULT_KEYLENGTH);
 
 	AESWrapper aes(key, AESWrapper::DEFAULT_KEYLENGTH);
 
-	std::string plaintext = "TESTING"; // TODO: read from file
 
 	// 2. encrypt a message (plain text)
-	std::string ciphertext = aes.encrypt(plaintext.c_str(), plaintext.length());
+	std::string ciphertext = aes.encrypt(file_data.c_str(), file_data.length());
 
 	return ciphertext;
 }
+
+
 
 std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes_key, unsigned char* client_id)
 {
@@ -165,7 +180,9 @@ std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes
 	std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
 
 
-	std::string encrypted_payload = ClientUtils::EncryptFileAES(aes_key, file_path);
+	std::string file_data = Utils::read_file_data(file_path);
+
+	std::string encrypted_payload = ClientUtils::EncryptFileAES(aes_key, file_data);
 
 	char* raw_payload = new char[encrypted_payload.length()];
 	std::memcpy(raw_payload, encrypted_payload.c_str(), encrypted_payload.length());
@@ -176,9 +193,18 @@ std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes
 	auto buffer = std::get<0>(raw_request);
 	auto buffer_size = std::get<1>(raw_request);
 
+	uint32_t file_crc = Utils::get_crc32(file_data);
+
 	auto response = tcp_client.send_data(buffer, buffer_size);
 
 
+	int payload_start_index = RESPONSE_HEADERS_BYTES_SIZE;
+	int payload_length = response.length() - payload_start_index;
+
+	uint32_t file_data_crc = std::atoi((response.substr(payload_start_index, payload_length)).c_str());
+
+	std::cout << file_data_crc << std::endl;
+	
 	return std::string();
 
 

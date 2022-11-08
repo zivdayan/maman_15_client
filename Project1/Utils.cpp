@@ -34,3 +34,30 @@ long Utils::get_file_size(std::string filename)
     int rc = stat(filename.c_str(), &stat_buf);
     return rc == 0 ? stat_buf.st_size : -1;
 }
+
+
+uint32_t Utils::get_crc32(const std::string& my_string) {
+    boost::crc_32_type result;
+    result.process_bytes(my_string.data(), my_string.length());
+    return result.checksum();
+}
+   
+std::string Utils::read_file_data(std::string file_path)
+{
+
+	std::ifstream infile(file_path);
+
+	infile.seekg(0, std::ios::end);
+	size_t length = infile.tellg();
+	infile.seekg(0, std::ios::beg);
+
+	char* buffer = new char[length];
+
+	infile.read(buffer, length);
+
+	std::string final_buffer(buffer, length);
+
+	delete buffer;
+	return final_buffer;
+ 
+}

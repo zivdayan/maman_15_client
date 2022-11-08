@@ -4,9 +4,9 @@
 #include <boost/array.hpp>
 #include <iostream>
 
+
 int main()
 {
-	
 	std::string username = std::string("ZivDayan");
 	
 	auto tcp_client = ClientUtils::InitClient();	

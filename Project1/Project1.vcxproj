@@ -83,7 +83,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -103,7 +103,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -119,7 +119,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -139,7 +139,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\stage\lib;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\Boost\libs;C:\Users\Ziv Dayan\Desktop\University\Defensive System-Programming\Mamans\CryptoPP\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

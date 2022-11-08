@@ -198,13 +198,16 @@ std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes
 	auto response = tcp_client.send_data(buffer, buffer_size);
 
 
-	int payload_start_index = RESPONSE_HEADERS_BYTES_SIZE;
+	int payload_start_index = RESPONSE_FILE_HEADERS_TOTAL_SIZE;
 	int payload_length = response.length() - payload_start_index;
 
-	uint32_t file_data_crc = std::atoi((response.substr(payload_start_index, payload_length)).c_str());
-
-	std::cout << file_data_crc << std::endl;
+	auto crc_pointer = response.c_str() + payload_start_index;
 	
+	uint32_t data;
+	std::memcpy((char*)&data, crc_pointer, sizeof(data));
+	
+	std::cout << data << std::endl;
+
 	return std::string();
 
 

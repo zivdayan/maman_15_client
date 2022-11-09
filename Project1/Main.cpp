@@ -1,27 +1,14 @@
-#include <iostream>
-#include "ClientUtils.h"
-#include <boost/asio.hpp>
-#include <boost/array.hpp>
-#include <iostream>
+#include "Scenerios.h"
+
 
 
 int main()
 {
-	std::string username = std::string("ZivDayan");
-	
-	auto tcp_client = ClientUtils::InitClient();	
-	unsigned char* client_id = ClientUtils::RegisterUser(tcp_client, username);
+	// It is recommended to comment out the rest of the un-wanted scenerios to simulate.
+	valid_send_file_flow();
 
-	tcp_client = ClientUtils::InitClient();
-	auto aes_key_to_decrypt = ClientUtils::SendRSAPublicKey(tcp_client, client_id, username);
-	
-	std::string private_key = aes_key_to_decrypt.front();
-	std::string encrypted_aes_key = aes_key_to_decrypt.back();
 
-	std::string decrypted_aes_key = ClientUtils::DecryptAESKey(encrypted_aes_key, private_key);
-	
-	tcp_client = ClientUtils::InitClient();
-	ClientUtils::SendEncryptedFile(tcp_client, decrypted_aes_key, client_id);
-	delete client_id;
+	//flow_with_file_validation_recovery();
+	//flow_invalid_crc();
 	return 0;
 }

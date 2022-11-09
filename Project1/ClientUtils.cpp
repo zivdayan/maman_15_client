@@ -32,6 +32,7 @@ unsigned char* ClientUtils::RegisterUser(TCPClient tcp_client, std::string usern
 	std::memcpy(client_id, response.c_str() + RESPONSE_HEADERS_BYTES_SIZE, 16);
 
 	delete buffer;
+	delete payload;
 
 	return client_id;
 }
@@ -173,7 +174,7 @@ std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_da
 
 
 
-std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes_key, unsigned char* client_id)
+bool ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes_key, unsigned char* client_id)
 {
 	TransferInfo transfer_info = ReadTransferFile();
 	std::string file_path = transfer_info.file_path;
@@ -206,9 +207,53 @@ std::string ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes
 	uint32_t data;
 	std::memcpy((char*)&data, crc_pointer, sizeof(data));
 	
-	std::cout << data << std::endl;
-
-	return std::string();
+	delete raw_payload;
 
 
+	return file_crc == data;
+
+}
+
+void ClientUtils::SendValidFile(TCPClient tcp_client, unsigned char* client_id)
+{
+	TransferInfo transfer_info = ReadTransferFile();
+	std::string file_path = transfer_info.file_path;
+	std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
+
+	FileServerRequest request = FileServerRequest(client_id, CLIENT_VERSION, int(FileServerRequest::RequestsType::REQUEST_VALID_CRC), base_filename.length(), nullptr);
+	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateValidationFileIndication(base_filename);
+	auto buffer = std::get<0>(raw_request);
+	auto buffer_size = std::get<1>(raw_request);
+
+	tcp_client.send_data(buffer, buffer_size);
+}
+
+
+void ClientUtils::SendInvalidCRC(TCPClient tcp_client, unsigned char* client_id)
+{
+	TransferInfo transfer_info = ReadTransferFile();
+	std::string file_path = transfer_info.file_path;
+	std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
+
+	FileServerRequest request = FileServerRequest(client_id, CLIENT_VERSION, int(FileServerRequest::RequestsType::REQUEST_INVALID_CRC), base_filename.length(), nullptr);
+	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateValidationFileIndication(base_filename);
+	auto buffer = std::get<0>(raw_request);
+	auto buffer_size = std::get<1>(raw_request);
+
+	tcp_client.send_data(buffer, buffer_size);
+	
+}
+void ClientUtils::SendTerminatingSessionInvalidCRC(TCPClient tcp_client, unsigned char* client_id)
+{
+	TransferInfo transfer_info = ReadTransferFile();
+	std::string file_path = transfer_info.file_path;
+	std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
+
+	FileServerRequest request = FileServerRequest(client_id, CLIENT_VERSION, int(FileServerRequest::RequestsType::REQUEST_INVALID_CRC_TERMINATING), base_filename.length(), nullptr);
+	std::tuple<const uint8_t*, const uint64_t> raw_request = request.GenerateValidationFileIndication(base_filename);
+	auto buffer = std::get<0>(raw_request);
+	auto buffer_size = std::get<1>(raw_request);
+
+	tcp_client.send_data(buffer, buffer_size);
+	
 }

@@ -141,3 +141,45 @@ std::tuple<const uint8_t*, const uint64_t> FileServerRequest::GenerateEncryptedF
 
 #pragma pack(pop)
 }
+
+
+std::tuple<const uint8_t*, const uint64_t> FileServerRequest::GenerateValidationFileIndication(std::string file_name)
+{
+#	pragma pack(push, 1)
+
+	struct RawRequest {
+		unsigned char client_id[16];
+		unsigned char version;
+		uint16_t code;
+		uint32_t payload_size;
+	};
+
+	struct ValidFileRequest
+	{
+		RawRequest raw_req;
+		char client_id[16];
+		char file_name[255];
+	};
+
+	struct ValidFileRequest req;
+
+
+	std::memcpy(req.raw_req.client_id, client_id, 16);
+	req.raw_req.version = version;
+	req.raw_req.code = code;
+	std::memcpy(req.raw_req.client_id, client_id, sizeof(req.client_id));
+
+	req.raw_req.payload_size = sizeof(req.client_id) + sizeof(req.file_name);
+
+
+	std::memcpy(req.client_id, client_id, sizeof(req.raw_req.client_id));
+	std::memcpy(req.file_name, file_name.c_str(), file_name.length());
+
+
+
+	const uint8_t* buffer= reinterpret_cast<const uint8_t*>(&req);
+	
+	return std::make_tuple(buffer, sizeof(req));
+
+#pragma pack(pop)
+}

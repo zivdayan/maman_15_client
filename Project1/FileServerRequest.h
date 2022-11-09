@@ -24,9 +24,7 @@ public:
     std::tuple<const uint8_t*, const uint64_t> GenerateSendingPKRequest(std::string username);
     std::tuple<const uint8_t*, const uint64_t> GenerateEncryptedFileSendRequest(std::string file_name, size_t file_size, std::string encrypted_file_content);
 
-    std::tuple<const uint8_t*, const uint64_t> GenerateValidCRCRequest();
-    std::tuple<const uint8_t*, const uint64_t> GenerateInvalidCRCRequest();
-    std::tuple<const uint8_t*, const uint64_t> GenerateInvalidTerminatingCRCRequest();
+    std::tuple<const uint8_t*, const uint64_t> GenerateValidationFileIndication(std::string file_name);
 
 
     /**
@@ -40,10 +38,6 @@ public:
         REQUEST_INVALID_CRC = 1105,
         REQUEST_INVALID_CRC_TERMINATING = 1106
     };
-
-
-
-
 
 
 };

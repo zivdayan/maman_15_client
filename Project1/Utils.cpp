@@ -1,5 +1,14 @@
 #include "Utils.h"
 
+/**
+ * @file Utils.cpp
+ * @brief Contains basic useful functions used over the project.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 void Utils::random_client_id(unsigned char* buf, int size)
 {
     srand(time(NULL));

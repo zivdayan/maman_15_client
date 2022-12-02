@@ -1,6 +1,17 @@
 #include "TCPClient.h"
 #include<windows.h> 
 
+
+
+/**
+ * @file TCPClient.cpp
+ * @brief Basic class enables to have raw socket communication between the client and the server.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 TCPClient::TCPClient(std::string ip_addr, uint16_t port, std::string username) : ip_addr(ip_addr), port(port), username(username) {}
 
 std::string TCPClient::send_data(const uint8_t* raw_buffer, const uint64_t size)
@@ -26,7 +37,7 @@ std::string TCPClient::send_data(const uint8_t* raw_buffer, const uint64_t size)
 
 	socket.close();
 
-	std::cout << "Recieved response (size:" << std::to_string(len) << " )" + response_data << std::endl;
+	std::cout << "[DEBUG] Recieved response (size:" << std::to_string(len) << " )" + response_data << std::endl;
 
 	return response_data;
 

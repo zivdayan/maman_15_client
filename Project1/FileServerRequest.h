@@ -4,6 +4,16 @@
 #include <tuple>
 #include <string>
 
+
+/**
+ * @file FileServerRequest.h
+ * @brief contains the base functions to generate and parse the protocol's structs.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 class FileServerRequest
 {
 private:

@@ -7,6 +7,17 @@
 
 #include <chrono>
 #include <thread>
+
+
+/**
+ * @file TCPClient.h
+ * @brief Basic class enables to have raw socket communication between the client and the server.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 class TCPClient
 {
 private:

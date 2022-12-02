@@ -16,7 +16,16 @@
 #include <string>
 #include "RSAWrapper.h"
 #include "AESWrapper.h"
+#include "Exceptions.h"
 
+/**
+ * @file ClientUtils.h
+ * @brief Central class in the project, contains all of the main functions the clients needs to interact and parse server's resposnes.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
 
 constexpr unsigned char CLIENT_VERSION = '1';
 constexpr unsigned int RESPONSE_HEADERS_BYTES_SIZE = 7;
@@ -40,7 +49,8 @@ public:
 	static MeInfo ReadMeFile();
 	static TransferInfo ReadTransferFile();
 
-};
 
+
+};
 
 

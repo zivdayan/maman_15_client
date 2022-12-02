@@ -2,6 +2,15 @@
 
 #include <string>
 
+/**
+ * @file AESWrapper.h
+ * @brief A class handles basic AES functions
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 
 class AESWrapper
 {

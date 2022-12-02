@@ -1,6 +1,18 @@
 #include "FileServerRequest.h"
 #include <boost/any.hpp>
 
+
+
+/**
+ * @file FileServerRequest.cpp
+ * @brief contains the base functions to generate and parse the protocol's structs.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
+
 FileServerRequest::FileServerRequest(unsigned char* client_id, unsigned char version, uint16_t code, uint32_t payload_size, char* payload) : client_id(client_id), version(version), code(code), payload_size(payload_size), payload(payload) {}
 
 

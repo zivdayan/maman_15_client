@@ -1,6 +1,15 @@
 #include "Base64Wrapper.h"
 
 
+/**
+ * @file Base64Wrapper.cpp
+ * @brief A class handles base64 encoding/decoding.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 std::string Base64Wrapper::encode(const std::string& str)
 {
 	std::string encoded;

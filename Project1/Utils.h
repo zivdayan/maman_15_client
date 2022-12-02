@@ -14,6 +14,16 @@
 #include "boost/filesystem.hpp"
 #include "boost/filesystem/fstream.hpp"
 
+
+/**
+ * @file Utils.h
+ * @brief Contains basic useful functions used over the project.
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 class Utils
 {
 public:
@@ -23,4 +33,6 @@ public:
     static long get_file_size(std::string filename);
     static uint32_t get_crc32(const std::string& my_string);
     static std::string read_file_data(std::string file_path);
+    
+
 };

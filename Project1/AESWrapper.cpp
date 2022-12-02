@@ -7,6 +7,15 @@
 #include <stdexcept>
 #include <immintrin.h>	// _rdrand32_step
 
+/**
+ * @file AESWrapper.cpp
+ * @brief A class handles basic AES functions
+ * @author Ziv Dayan
+
+ The Open University - Defensive Systems Programming  || Maman 15
+
+ */
+
 
 unsigned char* AESWrapper::GenerateKey(unsigned char* buffer, unsigned int length)
 {

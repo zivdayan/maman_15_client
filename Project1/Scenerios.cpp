@@ -2,10 +2,12 @@
 
 void valid_send_file_flow()
 {
-	std::string username = std::string("Ziv_Dayan");
+	std::string username = std::string("NewUser");
 
 	auto tcp_client = ClientUtils::InitClient();
 	unsigned char* client_id = ClientUtils::RegisterUser(tcp_client, username);
+
+	std::cout << "Registered succesfully!" << std::endl;
 
 	tcp_client = ClientUtils::InitClient();
 	auto aes_key_to_decrypt = ClientUtils::SendRSAPublicKey(tcp_client, client_id, username);
@@ -23,6 +25,7 @@ void valid_send_file_flow()
 		validated_file = ClientUtils::SendEncryptedFile(tcp_client, decrypted_aes_key, client_id);
 		if (validated_file)
 		{
+			std::cout << "File recieved succesfully!" << std::endl;
 			ClientUtils::SendValidFile(tcp_client, client_id);
 			break;
 		}

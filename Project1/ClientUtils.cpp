@@ -21,6 +21,7 @@ unsigned char* ClientUtils::RegisterUser(TCPClient tcp_client, std::string usern
 {
 	try
 	{
+		std::cout << "[INFO] Starting with registering the user." << std::endl;
 		unsigned char* fake_client_id = new unsigned char[16];
 		Utils::random_client_id(fake_client_id, 16);
 
@@ -60,6 +61,8 @@ std::vector<std::string> ClientUtils::SendRSAPublicKey(TCPClient tcp_client, uns
 	try
 	{
 		
+		std::cout << "[INFO] Starting RSA handshake with the server" << std::endl;
+
 		RSAPrivateWrapper rsapriv;
 
 		
@@ -202,6 +205,7 @@ void hexify(const unsigned char* buffer, unsigned int length)
 std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_data)
 {
 	try {
+		std::cout << "[INFO] Encrypting the file with received AES key" << std::endl;
 		// 1. Generate a key and initialize an AESWrapper. You can also create AESWrapper with default constructor which will automatically generates a random key.
 		unsigned char* key = new unsigned char[AESWrapper::DEFAULT_KEYLENGTH];
 		std::memcpy(key, aes_key.c_str(), AESWrapper::DEFAULT_KEYLENGTH);
@@ -227,6 +231,7 @@ std::string ClientUtils::EncryptFileAES(std::string aes_key, std::string file_da
 bool ClientUtils::SendEncryptedFile(TCPClient tcp_client, std::string aes_key, unsigned char* client_id)
 {
 	try {
+		std::cout << "[INFO] Sending encrypted file" << std::endl;
 		TransferInfo transfer_info = ReadTransferFile();
 		std::string file_path = transfer_info.file_path;
 		std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
@@ -277,7 +282,7 @@ void ClientUtils::SendValidFile(TCPClient tcp_client, unsigned char* client_id)
 
 	try
 	{
-
+		std::cout << "[INFO] The file was recieved at the server valid" << std::endl;
 		TransferInfo transfer_info = ReadTransferFile();
 		std::string file_path = transfer_info.file_path;
 		std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
@@ -302,6 +307,9 @@ void ClientUtils::SendValidFile(TCPClient tcp_client, unsigned char* client_id)
 void ClientUtils::SendInvalidCRC(TCPClient tcp_client, unsigned char* client_id)
 {
 	try {
+
+		std::cout << "[ERROR] The server recieved invalid file (CRC is not correct)" << std::endl;
+
 		TransferInfo transfer_info = ReadTransferFile();
 		std::string file_path = transfer_info.file_path;
 		std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);
@@ -324,6 +332,8 @@ void ClientUtils::SendInvalidCRC(TCPClient tcp_client, unsigned char* client_id)
 void ClientUtils::SendTerminatingSessionInvalidCRC(TCPClient tcp_client, unsigned char* client_id)
 {
 	try {
+		std::cout << "[CRITICAL] Terminating session, file is invalid after 3 tries." << std::endl;
+
 		TransferInfo transfer_info = ReadTransferFile();
 		std::string file_path = transfer_info.file_path;
 		std::string base_filename = file_path.substr(file_path.find_last_of("/\\") + 1);

@@ -1,13 +1,13 @@
 #include "Scenerios.h"
 
-void valid_send_file_flow()
+void valid_send_file_flow(std::string input_username)
 {
-	std::string username = std::string("NewUser");
+	std::string username = username;
 
 	auto tcp_client = ClientUtils::InitClient();
 	unsigned char* client_id = ClientUtils::RegisterUser(tcp_client, username);
 
-	std::cout << "Registered succesfully!" << std::endl;
+	std::cout << "Registered succesfully! \n" << std::endl;
 
 	tcp_client = ClientUtils::InitClient();
 	auto aes_key_to_decrypt = ClientUtils::SendRSAPublicKey(tcp_client, client_id, username);
@@ -25,7 +25,7 @@ void valid_send_file_flow()
 		validated_file = ClientUtils::SendEncryptedFile(tcp_client, decrypted_aes_key, client_id);
 		if (validated_file)
 		{
-			std::cout << "File recieved succesfully!" << std::endl;
+			std::cout << "File recieved succesfully! \n" << std::endl;
 			ClientUtils::SendValidFile(tcp_client, client_id);
 			break;
 		}
@@ -42,9 +42,9 @@ void valid_send_file_flow()
 	delete client_id;
 }
 
-void flow_with_file_validation_recovery()
+void flow_with_file_validation_recovery(std::string input_username)
 {
-	std::string username = std::string("Ziv_Dayan");
+	std::string username = username;
 
 	auto tcp_client = ClientUtils::InitClient();
 	unsigned char* client_id = ClientUtils::RegisterUser(tcp_client, username);
@@ -90,9 +90,9 @@ void flow_with_file_validation_recovery()
 }
 
 
-void flow_invalid_crc()
+void flow_invalid_crc(std::string input_username)
 {
-	std::string username = std::string("Ziv_Dayan");
+	std::string username =username;
 
 	auto tcp_client = ClientUtils::InitClient();
 	unsigned char* client_id = ClientUtils::RegisterUser(tcp_client, username);

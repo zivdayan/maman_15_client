@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AESWrapper">
+    <Position X="2.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAECAAAAAACABACAEAAAAAAQAAAAAAAAACAAAAA=</HashCode>
+      <FileName>AESWrapper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Base64Wrapper">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Base64Wrapper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClientUtils">
+    <Position X="7.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIAAAAAQBAAAABAAAAAACBAgCAAAAAIAAAAAAAQ=</HashCode>
+      <FileName>ClientUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionConfigFile" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionDecryptAESKey" Collapsed="true">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionRegistrationFailed" Collapsed="true">
+    <Position X="11.75" Y="6.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionSendingEncryptedFile" Collapsed="true">
+    <Position X="11.75" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionSendingFileIndication" Collapsed="true">
+    <Position X="11.75" Y="5.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionSendRSAPublicKey" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAEAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FileServerRequest">
+    <Position X="11.5" Y="0.5" Width="3" />
+    <NestedTypes>
+      <Enum Name="FileServerRequest::RequestsType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FileServerRequest.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAABAABBAAAAAAAAAIAAAABAIAAAAAQAAAAQ=</HashCode>
+      <FileName>FileServerRequest.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeInfo" Collapsed="true">
+    <Position X="7.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAIAAEAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>MeInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSAPrivateWrapper" Collapsed="true">
+    <Position X="9.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABIAAAAQAAAAEAAEAgEAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>RSAWrapper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSAPublicWrapper" Collapsed="true">
+    <Position X="4.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABBEAAQAAAAEAAEAAACAAAAAACAAAAAAgAAAAAAA=</HashCode>
+      <FileName>RSAWrapper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCPClient" Collapsed="true">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAEAIAAABAgAAAAAAAAAAAA=</HashCode>
+      <FileName>TCPClient.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransferInfo" Collapsed="true">
+    <Position X="7.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAEAAAAAAAAAAAQAAEAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>TransferInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utils">
+    <Position X="9.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAIAAAAAAAAAAAABAAACAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Utils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

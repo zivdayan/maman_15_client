@@ -6,8 +6,8 @@
 #include <iostream>
 
 
-void valid_send_file_flow();
+void valid_send_file_flow(std::string username);
 
-void flow_with_file_validation_recovery();
+void flow_with_file_validation_recovery(std::string username);
 
-void flow_invalid_crc();
+void flow_invalid_crc(std::string username);
